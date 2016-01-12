@@ -362,6 +362,10 @@ func toContainerStats0(s *cgroups.Stats, ret *info.ContainerStats) {
 		ret.Cpu.Usage.PerCpu[i] = s.CpuStats.CpuUsage.PercpuUsage[i]
 		ret.Cpu.Usage.Total += s.CpuStats.CpuUsage.PercpuUsage[i]
 	}
+
+	ret.Cpu.ThrottlingData.Periods = s.CpuStats.ThrottlingData.Periods
+	ret.Cpu.ThrottlingData.ThrottledPeriods = s.CpuStats.ThrottlingData.ThrottledPeriods
+	ret.Cpu.ThrottlingData.ThrottledTime = s.CpuStats.ThrottlingData.ThrottledTime
 }
 
 func toContainerStats1(s *cgroups.Stats, ret *info.ContainerStats) {

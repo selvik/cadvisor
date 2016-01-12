@@ -51,10 +51,17 @@ const (
 	serCpuUsageSystem string = "cpu_usage_system"
 	serCpuUsageUser   string = "cpu_usage_user"
 	serCpuUsagePerCpu string = "cpu_usage_per_cpu"
+	serCpuPeriods string = "cpu_periods"
+	serCpuThrottledPeriods string = "cpu_throttled_periods"
+	serCpuThrottledTime string = "cpu_throttled_time"
+
 	// Smoothed average of number of runnable threads x 1000.
 	serLoadAverage string = "load_average"
+
 	// Memory Usage
 	serMemoryUsage string = "memory_usage"
+	serMemoryFailcnt string = "memory_failcnt"
+
 	// Working set size
 	serMemoryWorkingSet string = "memory_working_set"
 	// Cumulative count of bytes received.
@@ -179,6 +186,11 @@ func (self *influxdbStorage) containerStatsToPoints(
 	// CPU usage: Time spent in user space (in nanoseconds)
 	points = append(points, makePoint(serCpuUsageUser, stats.Cpu.Usage.User))
 
+	// CPU throttling metrics
+	points = append(points, makePoint(serCpuPeriods, stats.Cpu.ThrottlingData.Periods))
+	points = append(points, makePoint(serCpuThrottledPeriods, stats.Cpu.ThrottlingData.ThrottledPeriods))
+	points = append(points, makePoint(serCpuThrottledTime, stats.Cpu.ThrottlingData.ThrottledTime))
+
 	// CPU usage per CPU
 	for i := 0; i < len(stats.Cpu.Usage.PerCpu); i++ {
 		point := makePoint(serCpuUsagePerCpu, stats.Cpu.Usage.PerCpu[i])
@@ -193,6 +205,9 @@ func (self *influxdbStorage) containerStatsToPoints(
 
 	// Memory Usage
 	points = append(points, makePoint(serMemoryUsage, stats.Memory.Usage))
+
+	// Memory throttling metric
+	points = append(points, makePoint(serMemoryFailcnt, stats.Memory.Failcnt))
 
 	// Working Set Size
 	points = append(points, makePoint(serMemoryWorkingSet, stats.Memory.WorkingSet))

@@ -273,6 +273,15 @@ type CpuUsage struct {
 	System uint64 `json:"system"`
 }
 
+type ThrottlingData struct {
+	// Number of periods with throttling active
+	Periods uint64 `json:"periods"`
+	// Number of periods when the container hit its throttling limit.
+	ThrottledPeriods uint64 `json:"throttled_periods"`
+	// Aggregate time the container was throttled for in nanoseconds.
+	ThrottledTime uint64 `json:"throttled_time"`
+}
+
 // All CPU usage metrics are cumulative from the creation of the container
 type CpuStats struct {
 	Usage CpuUsage `json:"usage"`
@@ -281,6 +290,8 @@ type CpuStats struct {
 	// Load is smoothed over the last 10 seconds. Instantaneous value can be read
 	// from LoadStats.NrRunning.
 	LoadAverage int32 `json:"load_average"`
+
+	ThrottlingData ThrottlingData `json:"throttling_data"`
 }
 
 type PerDiskStats struct {
