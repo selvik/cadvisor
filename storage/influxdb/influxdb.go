@@ -1,3 +1,9 @@
+/*
+ContainerX modifications
+Four new metrics are exported from each container that captures
+to what extent a container's CPU and memory have been throttled
+*/
+
 // Copyright 2014 Google Inc. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -47,19 +53,19 @@ type influxdbStorage struct {
 // Series names
 const (
 	// Cumulative CPU usage
-	serCpuUsageTotal  string = "cpu_usage_total"
-	serCpuUsageSystem string = "cpu_usage_system"
-	serCpuUsageUser   string = "cpu_usage_user"
-	serCpuUsagePerCpu string = "cpu_usage_per_cpu"
-	serCpuPeriods string = "cpu_periods"
+	serCpuUsageTotal       string = "cpu_usage_total"
+	serCpuUsageSystem      string = "cpu_usage_system"
+	serCpuUsageUser        string = "cpu_usage_user"
+	serCpuUsagePerCpu      string = "cpu_usage_per_cpu"
+	serCpuPeriods          string = "cpu_periods"
 	serCpuThrottledPeriods string = "cpu_throttled_periods"
-	serCpuThrottledTime string = "cpu_throttled_time"
+	serCpuThrottledTime    string = "cpu_throttled_time"
 
 	// Smoothed average of number of runnable threads x 1000.
 	serLoadAverage string = "load_average"
 
 	// Memory Usage
-	serMemoryUsage string = "memory_usage"
+	serMemoryUsage   string = "memory_usage"
 	serMemoryFailcnt string = "memory_failcnt"
 
 	// Working set size

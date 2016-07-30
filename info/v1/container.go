@@ -1,3 +1,9 @@
+/*
+ContainerX modifications
+Four new metrics are exported from each container that captures
+to what extent a container's CPU and memory have been throttled
+*/
+
 // Copyright 2014 Google Inc. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
